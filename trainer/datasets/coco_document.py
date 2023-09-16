@@ -142,8 +142,8 @@ def build(image_set, args):
     mode_train = 'train'
     mode_val = 'val'
     PATHS = {
-        "train": (root / "PNG", root / "COCO" / f'{mode_train}_train2017.json'),
-        "val": (root / "PNG", root / "COCO" / f'{mode_val}_val2017.json'),
+        "train": (root / "PNG", root / "COCO" / f'{mode_train}.json'),
+        "val": (root / "PNG", root / "COCO" / f'{mode_val}.json'),
     }
 
     img_folder, ann_file = PATHS[image_set]
