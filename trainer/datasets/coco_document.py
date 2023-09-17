@@ -15,7 +15,7 @@ class DocumentAnalyzeDataset(torchvision.datasets.CocoDetection):
 
     def __getitem__(self, idx):
         if self.num_samples is not None:
-            idx %= self.num_samples
+            idx = self.num_samples
         else:
             idx = idx
         img, target = super(DocumentAnalyzeDataset, self).__getitem__(idx)
