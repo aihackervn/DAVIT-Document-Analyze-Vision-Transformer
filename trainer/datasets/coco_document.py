@@ -16,10 +16,10 @@ class DocumentAnalyzeDataset(torchvision.datasets.CocoDetection):
     def __getitem__(self, idx):
         img, target = super(DocumentAnalyzeDataset, self).__getitem__(idx)
         image_id = self.ids[idx]
-        if self.num_samples is not None:
-            image_id = image_id[:self.num_samples]
-        else:
-            image_id = image_id
+        # if self.num_samples is not None:
+        #     image_id = image_id[:self.num_samples]
+        # else:
+        #     image_id = image_id
         target = {'image_id': image_id, 'annotations': target}
         img, target = self.prepare(img, target)
         if self._transforms is not None:
@@ -151,6 +151,6 @@ def build(image_set, args, num_samples):
         "val": (root / "PNG", root / "COCO" / f'{mode_val}.json'),
     }
 
-    img_folder, ann_file = PATHS[image_set]
+    img_folder, ann_file = PATHS[image_set][:num_samples]
     dataset = DocumentAnalyzeDataset(img_folder, ann_file, transforms=make_coco_transforms(image_set), return_masks=args.masks, num_samples=num_samples)
     return dataset
