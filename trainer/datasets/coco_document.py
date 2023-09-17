@@ -151,6 +151,6 @@ def build(image_set, args, num_samples):
         "val": (root / "PNG", root / "COCO" / f'{mode_val}.json'),
     }
 
-    img_folder, ann_file = PATHS[image_set][:num_samples]
+    img_folder, ann_file = PATHS[image_set]
     dataset = DocumentAnalyzeDataset(img_folder, ann_file, transforms=make_coco_transforms(image_set), return_masks=args.masks, num_samples=num_samples)
     return dataset
