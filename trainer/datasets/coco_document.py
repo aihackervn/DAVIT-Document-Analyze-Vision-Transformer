@@ -7,12 +7,17 @@ import trainer.datasets.transforms as T
 
 
 class DocumentAnalyzeDataset(torchvision.datasets.CocoDetection):
-    def __init__(self, img_folder, ann_file, transforms, return_masks):
+    def __init__(self, img_folder, ann_file, transforms, return_masks, num_samples):
         super(DocumentAnalyzeDataset, self).__init__(img_folder, ann_file)
         self._transforms = transforms
         self.prepare = ConvertCocoPolysToMask(return_masks)
+        self.num_samples = num_samples
 
     def __getitem__(self, idx):
+        if self.num_samples is not None:
+            idx %= self.num_samples
+        else:
+            idx = idx
         img, target = super(DocumentAnalyzeDataset, self).__getitem__(idx)
         image_id = self.ids[idx]
         target = {'image_id': image_id, 'annotations': target}
