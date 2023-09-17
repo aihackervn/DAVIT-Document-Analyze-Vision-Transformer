@@ -14,12 +14,12 @@ class DocumentAnalyzeDataset(torchvision.datasets.CocoDetection):
         self.num_samples = num_samples
 
     def __getitem__(self, idx):
-        if self.num_samples is not None:
-            idx = idx[:self.num_samples]
-        else:
-            idx = idx
         img, target = super(DocumentAnalyzeDataset, self).__getitem__(idx)
         image_id = self.ids[idx]
+        if self.num_samples is not None:
+            image_id = image_id[:self.num_samples]
+        else:
+            image_id = image_id
         target = {'image_id': image_id, 'annotations': target}
         img, target = self.prepare(img, target)
         if self._transforms is not None:
