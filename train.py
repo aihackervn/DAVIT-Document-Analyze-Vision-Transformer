@@ -77,6 +77,7 @@ def get_args_parser():
     # dataset parameters
     parser.add_argument('--dataset_file', default='coco')
     parser.add_argument('--coco_path', type=str)
+    parser.add_argument('--num_samples', type=int)
     parser.add_argument('--coco_panoptic_path', type=str)
     parser.add_argument('--remove_difficult', action='store_true')
 
@@ -135,8 +136,8 @@ def main(args):
                                   weight_decay=args.weight_decay)
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.lr_drop)
 
-    dataset_train = build_dataset(image_set='train', args=args)
-    dataset_val = build_dataset(image_set='val', args=args)
+    dataset_train = build_dataset(image_set='train', args=args, num_samples=args.num_samples)
+    dataset_val = build_dataset(image_set='val', args=args, num_samples=args.num_samples)
 
     if args.distributed:
         sampler_train = DistributedSampler(dataset_train)

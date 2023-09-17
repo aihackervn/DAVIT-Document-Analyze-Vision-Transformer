@@ -12,7 +12,7 @@ def get_coco_api_from_dataset(dataset):
             dataset = dataset.dataset
     if isinstance(dataset, torchvision.datasets.CocoDetection):
         return dataset.coco
-def build_dataset(image_set, args):
+def build_dataset(image_set, args, num_samples):
     if args.dataset_file == 'coco':
-        return build_coco(image_set, args)
+        return build_coco(image_set, args, num_samples=num_samples)
     raise ValueError(f'dataset {args.dataset_file} not supported')

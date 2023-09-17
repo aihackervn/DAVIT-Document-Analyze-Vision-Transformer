@@ -141,7 +141,7 @@ def make_coco_transforms(image_set):
     raise ValueError(f'unknown {image_set}')
 
 
-def build(image_set, args):
+def build(image_set, args, num_samples):
     root = Path(args.coco_path)
     assert root.exists(), f'provided COCO path {root} does not exist'
     mode_train = 'train'
@@ -152,5 +152,5 @@ def build(image_set, args):
     }
 
     img_folder, ann_file = PATHS[image_set]
-    dataset = DocumentAnalyzeDataset(img_folder, ann_file, transforms=make_coco_transforms(image_set), return_masks=args.masks)
+    dataset = DocumentAnalyzeDataset(img_folder, ann_file, transforms=make_coco_transforms(image_set), return_masks=args.masks, num_samples=num_samples)
     return dataset
